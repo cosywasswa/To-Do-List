@@ -59,3 +59,13 @@ hr {
   border-bottom: 1px solid rgb(151, 147, 147);
   height: 40px;
 }
+
+.clear {
+  width: 440px;
+  font-size: 30px;
+  padding: 20px;
+}
+
+.cleardiv {
+  margin-top: -25px;
+}
