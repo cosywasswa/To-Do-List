@@ -17,7 +17,6 @@
   - [🛠 Built With](#built-with)
     - [Tech Stack](#tech-stack)
     - [Key Features](#key-features)
-  - [🚀 Live Demo](#live-demo)
 - [💻 Getting Started](#getting-started)
   - [Setup](#setup)
   - [Prerequisites](#prerequisites)
@@ -72,10 +71,6 @@
 
 - **[Displays List tasks]**
 - **[Addition of New tasks]**
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-- This is To-Do-List project <a href="/">Live Demo Link</a>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
