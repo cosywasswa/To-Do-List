@@ -12,13 +12,16 @@
 
 .list-items h3 {
   text-align: left;
+
   /* border-bottom: 1px solid rgb(216, 207, 207); */
   padding-bottom: 2px;
 }
 
 .list-items {
   width: 400px;
+
   /* display: flex; */
+
   /* flex-direction: column; */
   justify-content: center;
   list-style: none;
