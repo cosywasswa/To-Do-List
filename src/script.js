@@ -62,11 +62,12 @@ function displayTask(index) {
       const newDescription = taskDescription.value.trim();
       if (newDescription !== '') {
         editlist(index, newDescription);
+      } else {
+        taskDescription.value = myTasks[index].description; // Restore the previous description
       }
     }
   });
 }
-
 function deleteListItem(index) {
   const container = document.getElementById('list-items');
   container.removeChild(container.children[index]);
@@ -96,7 +97,6 @@ document.addEventListener('DOMContentLoaded', () => {
       displayTask(index);
     });
   }
-
   const container = document.getElementById('list-items');
 
   container.addEventListener('click', (event) => {
