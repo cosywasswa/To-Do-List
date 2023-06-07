@@ -25,8 +25,7 @@
 }
 
 .check {
- 
-  margin-left: -20px; 
+  margin-left: -20px;
   width: 20px;
 }
 
@@ -39,9 +38,9 @@
 }
 
 hr {
-width: 110%;
-margin-left: -40px;
-margin-bottom: -1px;
+  width: 110%;
+  margin-left: -40px;
+  margin-bottom: -1px;
 }
 
 .addtask {
@@ -64,8 +63,8 @@ margin-bottom: -1px;
 }
 
 .cleardiv {
- position: relative;
-  top: -40px; 
+  position: relative;
+  top: -40px;
   padding-top: 20px;
 }
 
@@ -93,7 +92,7 @@ margin-bottom: -1px;
   top: -35px;
   display: block;
   right: 0;
-  padding: 10px 0;;
+  padding: 10px 0;
 }
 
 .kebab-menu.active {
@@ -103,7 +102,7 @@ margin-bottom: -1px;
 }
 
 .list {
- padding-top: 10px;
+  padding-top: 10px;
 }
 
 .disc {
@@ -111,5 +110,4 @@ margin-bottom: -1px;
   border-style: none;
   padding-left: 10px;
   height: 10%;
-  
 }
