@@ -12,17 +12,11 @@
 
 .list-items h3 {
   text-align: left;
-
-  /* border-bottom: 1px solid rgb(216, 207, 207); */
   padding-bottom: 2px;
 }
 
 .list-items {
   width: 400px;
-
-  /* display: flex; */
-
-  /* flex-direction: column; */
   justify-content: center;
   list-style: none;
   text-align: left;
@@ -31,9 +25,9 @@
 }
 
 .check {
-  position: relative;
-  top: 35px;
-  margin-left: -20px;
+ 
+  margin-left: -20px; 
+  width: 20px;
 }
 
 .not-completed {
@@ -45,12 +39,13 @@
 }
 
 hr {
-  width: 110%;
-  margin-left: -40px;
+width: 110%;
+margin-left: -40px;
+margin-bottom: -1px;
 }
 
 .addtask {
-  width: 100%;
+  width: 99%;
   border-style: none;
   font-size: 15px;
   font-style: italic;
@@ -58,14 +53,63 @@ hr {
   padding-left: 40px;
   border-bottom: 1px solid rgb(151, 147, 147);
   height: 40px;
+  margin-bottom: 20px;
 }
 
 .clear {
   width: 440px;
   font-size: 30px;
   padding: 20px;
+  margin-top: -25px;
 }
 
 .cleardiv {
-  margin-top: -25px;
+ position: relative;
+  top: -40px; 
+  padding-top: 20px;
+}
+
+.kebab-menu {
+  position: relative;
+  top: -40px;
+  float: right;
+  margin-right: 10px;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.delete {
+  position: relative;
+  top: -40px;
+  display: none;
+  float: right;
+  right: -200px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.kebab-menu.active + .delete {
+  position: relative;
+  top: -35px;
+  display: block;
+  right: 0;
+  padding: 10px 0;;
+}
+
+.kebab-menu.active {
+  display: none;
+  position: relative;
+  top: -40px;
+}
+
+.list {
+ padding-top: 10px;
+}
+
+.disc {
+  font-size: 16px;
+  border-style: none;
+  padding-left: 10px;
+  height: 10%;
+  
 }
