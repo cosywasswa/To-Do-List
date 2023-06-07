@@ -36,7 +36,7 @@
 
 # 📖 [To-Do-List] <a name="about-project"></a>
 
-**[To-Do-List is an application for adding new To-Do-List tasks by use of array of objects using ES6 and webpack.]**
+**[To-Do-List is an application for adding new To-Do-List tasks by use of array of objects using ES6 and webpack triggered when a user inputs task items using the input, the user also removes a task by use of a delete icon and can also updated the task description.]**
 
 ## 🛠 Built With <a name="built-with"></a>
 
@@ -71,6 +71,8 @@
 
 - **[Displays List tasks]**
 - **[Addition of New tasks]**
+- **[deletion of tasks]**
+- **[editing of a task description]**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -119,8 +121,7 @@ Use index.html file.
 
 ## 🔭 Future Features <a name="future-features"></a>
 
-- [ ] **[Add and remove functionality]**
-- [ ] **[storage functionality]**
+- [ ] **[interactive functionality]**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
