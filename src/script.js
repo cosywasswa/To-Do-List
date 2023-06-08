@@ -2,15 +2,15 @@ import './style.css';
 
 let myTasks = [];
 
-function addArray(description, completed, index) {
+const addArray = (description, completed, index) => {
   myTasks.push({
     description,
     completed: false,
     index,
   });
-}
+};
 
-function getInput(event) {
+const getInput = (event) => {
   if (event.key === 'Enter') {
     const myTaskInput = document.getElementById('addtask');
     const description = myTaskInput.value.trim();
@@ -22,9 +22,9 @@ function getInput(event) {
       storeItems();
     }
   }
-}
+};
 
-function displayTask(index) {
+const displayTask = (index) => {
   const container = document.getElementById('list-items');
 
   const item = document.createElement('li');
@@ -67,24 +67,24 @@ function displayTask(index) {
       }
     }
   });
-}
-function deleteListItem(index) {
+};
+const deleteListItem = (index) => {
   const container = document.getElementById('list-items');
   container.removeChild(container.children[index]);
   myTasks.splice(index, 1);
   updateIndexes();
   storeItems();
-}
+};
 
-function updateIndexes() {
+const updateIndexes = () => {
   myTasks.forEach((task, index) => {
     task.index = index + 1;
   });
-}
+};
 
-function storeItems() {
+const storeItems = () => {
   localStorage.setItem('myTasks', JSON.stringify(myTasks));
-}
+};
 
 document.addEventListener('DOMContentLoaded', () => {
   const myTaskInput = document.getElementById('addtask');
@@ -121,9 +121,9 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-function editlist(index, newDescription) {
+const editlist = (index, newDescription) => {
   if (index >= 0 && index < myTasks.length) {
     myTasks[index].description = newDescription;
     storeItems(); // Update the stored tasks after modifying the description
   }
-}
+};
