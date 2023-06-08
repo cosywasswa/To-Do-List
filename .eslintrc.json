@@ -11,6 +11,7 @@
     },
     "extends": ["airbnb-base"],
     "rules": {
+      "max-len": ["error", { "code": 126 }],
       "no-plusplus": "off",
       "import/prefer-default-export": "off",
       "no-use-before-define": "off",
