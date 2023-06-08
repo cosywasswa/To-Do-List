@@ -1,127 +1,168 @@
 import './style.css';
+import { clearCompletedItems, handleCheckboxClick } from './modules/interactive.js';
 
-let myTasks = [];
+class TaskManager {
+  constructor() {
+    this.myTasks = [];
+    this.container = document.getElementById('list-items');
+    this.myTaskInput = document.getElementById('addtask');
+    this.clearButton = document.querySelector('.clear');
 
-const addArray = (description, completed, index) => {
-  myTasks.push({
-    description,
-    completed: false,
-    index,
-  });
-};
-
-const getInput = (event) => {
-  if (event.key === 'Enter') {
-    const myTaskInput = document.getElementById('addtask');
-    const description = myTaskInput.value.trim();
-
-    if (description !== '') {
-      addArray(description, false, myTasks.length + 1);
-      myTaskInput.value = '';
-      displayTask(myTasks.length - 1); // Display the newly added task
-      storeItems();
-    }
+    this.initialize();
+    this.loadTasksFromLocalStorage();
   }
-};
 
-const displayTask = (index) => {
-  const container = document.getElementById('list-items');
+  initialize() {
+    this.myTaskInput.addEventListener('keypress', this.getInput.bind(this));
+    this.clearButton.addEventListener('click', this.clearCompletedItems.bind(this));
 
-  const item = document.createElement('li');
-  const checkbox = document.createElement('input');
-  const taskDescription = document.createElement('input');
-  const element = document.createElement('hr');
-  const kebabMenu = document.createElement('div');
-  const kebabIcon = document.createElement('span');
-  const trash = document.createElement('span');
+    this.container.addEventListener('click', (event) => {
+      const kebabMenu = event.target.closest('.kebab-menu');
+      if (kebabMenu) {
+        kebabMenu.classList.toggle('active');
+        const deleteIcon = kebabMenu.querySelector('.delete');
+        if (deleteIcon) {
+          deleteIcon.classList.toggle('active');
+        }
+      }
+    });
 
-  trash.classList.add('fas', 'fa-trash', 'delete');
+    this.container.addEventListener('click', (event) => {
+      const deleteIcon = event.target.closest('.delete');
+      if (deleteIcon) {
+        event.stopPropagation();
+        const listItem = deleteIcon.closest('.list');
+        const index = Array.from(this.container.children).indexOf(listItem);
+        this.deleteListItem(index);
+      }
+    });
 
-  checkbox.type = 'checkbox';
-  checkbox.classList.add('check');
-
-  item.classList.add('list');
-  taskDescription.value = myTasks[index].description;
-  taskDescription.classList.add('disc');
-
-  kebabMenu.classList.add('kebab-menu');
-  kebabIcon.classList.add('kebab-icon');
-  kebabIcon.innerHTML = '&#8942;';
-  kebabMenu.appendChild(kebabIcon);
-
-  item.appendChild(checkbox);
-  item.appendChild(taskDescription);
-  item.appendChild(element);
-  item.appendChild(kebabMenu);
-  item.appendChild(trash);
-
-  container.appendChild(item);
-
-  taskDescription.addEventListener('change', () => {
-    const newDescription = taskDescription.value.trim();
-    if (newDescription !== '') {
-      editlist(index, newDescription);
-    } else {
-      taskDescription.value = myTasks[index].description; // Restore the previous description
-    }
-  });
-};
-const deleteListItem = (index) => {
-  const container = document.getElementById('list-items');
-  container.removeChild(container.children[index]);
-  myTasks.splice(index, 1);
-  updateIndexes();
-  storeItems();
-};
-
-const updateIndexes = () => {
-  myTasks.forEach((task, index) => {
-    task.index = index + 1;
-  });
-};
-
-const storeItems = () => {
-  localStorage.setItem('myTasks', JSON.stringify(myTasks));
-};
-
-document.addEventListener('DOMContentLoaded', () => {
-  const myTaskInput = document.getElementById('addtask');
-  myTaskInput.addEventListener('keypress', getInput);
-
-  const storedTasks = localStorage.getItem('myTasks');
-  if (storedTasks) {
-    myTasks = JSON.parse(storedTasks);
-    myTasks.forEach((task, index) => {
-      displayTask(index);
+    this.container.addEventListener('click', (event) => {
+      const checkbox = event.target.closest('.check');
+      if (checkbox) {
+        handleCheckboxClick(event, this.container, this.myTasks, this.updateCompleted.bind(this), this.storeItems.bind(this));
+      }
     });
   }
-  const container = document.getElementById('list-items');
 
-  container.addEventListener('click', (event) => {
-    const kebabMenu = event.target.closest('.kebab-menu');
-    if (kebabMenu) {
-      kebabMenu.classList.toggle('active');
-      const deleteIcon = kebabMenu.querySelector('.delete');
-      if (deleteIcon) {
-        deleteIcon.classList.toggle('active');
+  loadTasksFromLocalStorage() {
+    const storedTasks = localStorage.getItem('myTasks');
+    if (storedTasks) {
+      this.myTasks = JSON.parse(storedTasks);
+      this.myTasks.forEach((task, index) => {
+        this.displayTask(index);
+      });
+    }
+  }
+
+  addTaskToArray(description, completed, index) {
+    this.myTasks.push({
+      description,
+      completed: false,
+      index,
+    });
+  }
+
+  getInput(event) {
+    if (event.key === 'Enter') {
+      const description = this.myTaskInput.value.trim();
+
+      if (description !== '') {
+        this.addTaskToArray(description, false, this.myTasks.length + 1);
+        this.myTaskInput.value = '';
+        this.displayTask(this.myTasks.length - 1);
+        this.storeItems();
       }
     }
-  });
-
-  container.addEventListener('click', (event) => {
-    const deleteIcon = event.target.closest('.delete');
-    if (deleteIcon) {
-      event.stopPropagation();
-      const listItem = deleteIcon.closest('.list');
-      const index = Array.from(container.children).indexOf(listItem);
-      deleteListItem(index);
-    }
-  });
-});
-
-const editlist = (index, newDescription) => {
-  if (index >= 0 && index < myTasks.length) {
-    myTasks[index].description = newDescription;
-    storeItems(); // Update the stored tasks after modifying the description
   }
-};
+
+  displayTask(index) {
+    const item = document.createElement('li');
+    const checkbox = document.createElement('input');
+    const taskDescription = document.createElement('input');
+    const element = document.createElement('hr');
+    const kebabMenu = document.createElement('div');
+    const kebabIcon = document.createElement('span');
+    const trash = document.createElement('span');
+
+    trash.classList.add('fas', 'fa-trash', 'delete');
+    checkbox.type = 'checkbox';
+    checkbox.classList.add('check');
+    item.classList.add('list');
+    taskDescription.value = this.myTasks[index].description;
+    taskDescription.classList.add('disc');
+    kebabMenu.classList.add('kebab-menu');
+    kebabIcon.classList.add('kebab-icon');
+    kebabIcon.innerHTML = '&#8942;';
+    kebabMenu.appendChild(kebabIcon);
+
+    item.appendChild(checkbox);
+    item.appendChild(taskDescription);
+    item.appendChild(element);
+    item.appendChild(kebabMenu);
+    item.appendChild(trash);
+    this.container.appendChild(item);
+
+    checkbox.addEventListener('click', (event) => {
+      handleCheckboxClick(event, this.container, this.myTasks, this.updateCompleted.bind(this), this.storeItems.bind(this));
+    });
+
+    if (this.myTasks[index].completed) {
+      taskDescription.classList.add('completed');
+      checkbox.checked = true;
+    }
+
+    taskDescription.addEventListener('change', () => {
+      const newDescription = taskDescription.value.trim();
+      if (newDescription !== '') {
+        this.editTask(index, newDescription);
+      } else {
+        taskDescription.value = this.myTasks[index].description;
+      }
+    });
+  }
+
+  deleteListItem(index) {
+    this.container.removeChild(this.container.children[index]);
+    this.myTasks.splice(index, 1);
+    this.updateIndexes();
+    this.storeItems();
+  }
+
+  updateIndexes() {
+    this.myTasks.forEach((task, index) => {
+      task.index = index + 1;
+    });
+  }
+
+  storeItems() {
+    localStorage.setItem('myTasks', JSON.stringify(this.myTasks));
+  }
+
+  editTask(index, newDescription) {
+    if (index >= 0 && index < this.myTasks.length) {
+      this.myTasks[index].description = newDescription;
+      this.storeItems();
+    }
+  }
+
+  updateCompleted(index, isChecked) {
+    if (index >= 0 && index < this.myTasks.length) {
+      this.myTasks[index].completed = isChecked;
+      const taskDescription = document.querySelector(`#list-items li:nth-child(${index + 1}) .disc`);
+      if (isChecked) {
+        taskDescription.classList.add('completed');
+      } else {
+        taskDescription.classList.remove('completed');
+      }
+      this.storeItems();
+    }
+  }
+
+  clearCompletedItems() {
+    clearCompletedItems(this.container, this.myTasks, this.updateIndexes.bind(this), this.storeItems.bind(this));
+  }
+}
+
+// eslint-disable-next-line no-new
+new TaskManager();
