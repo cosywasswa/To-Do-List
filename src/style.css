@@ -125,10 +125,11 @@ hr {
   display: flex;
   flex-direction: column;
   background-color: white;
-  width: 61%;
+  width: 400px;
   list-style: none;
   position: relative;
-  top: 50px;
+  top: 20px;
+  margin: auto;
 }
 
 .list-items1 hr {
