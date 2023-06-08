@@ -71,7 +71,7 @@ function displayTask(index) {
 function deleteListItem(index) {
   const container = document.getElementById('list-items');
   container.removeChild(container.children[index]);
-  myTasks.splice(container.children[index], 1);
+  myTasks.splice(index, 1);
   updateIndexes();
   storeItems();
 }
