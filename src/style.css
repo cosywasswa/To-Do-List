@@ -71,6 +71,10 @@ hr {
   z-index: 1000;
 }
 
+.cleardiv:hover {
+  background-color: bisque;
+}
+
 .kebab-menu {
   position: relative;
   top: -40px;
@@ -134,4 +138,16 @@ hr {
 
 .list-items1 hr {
   width: 109.5%;
+}
+
+.disc.completed {
+  text-decoration: line-through;
+}
+
+.refresh {
+  position: relative;
+  top: 60px;
+  z-index: 1000;
+  left: 12rem;
+  color: rgb(156, 149, 149);
 }
