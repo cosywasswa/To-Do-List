@@ -57,15 +57,14 @@ const displayTask = (index) => {
 
   container.appendChild(item);
 
-  taskDescription.addEventListener('keyup', (event) => {
-    if (event.key === 'Enter') {
+  taskDescription.addEventListener('change', () => {
       const newDescription = taskDescription.value.trim();
       if (newDescription !== '') {
         editlist(index, newDescription);
       } else {
         taskDescription.value = myTasks[index].description; // Restore the previous description
       }
-    }
+    
   });
 };
 const deleteListItem = (index) => {
