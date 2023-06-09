@@ -174,4 +174,3 @@ class TaskManager {
 }
 
 const taskManager = new TaskManager();
-taskManager.initialize();
