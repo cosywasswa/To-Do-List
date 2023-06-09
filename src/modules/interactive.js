@@ -1,23 +1,21 @@
-const clearCompletedItems = (container, myTasks, updateIndexes, storeItems) => {
-  const completedItems = container.querySelectorAll('.completed');
+const clearCompletedItems = (myTasks) => {
+  myTasks = JSON.parse(localStorage.getItem('myTasks')) || [];
+  myTasks = myTasks.filter((task) => !task.completed);
+  for (let i = 0; i < myTasks.length; i += 1) {
+    myTasks[i].index = i + 1;
+  }
 
-  completedItems.forEach((completedItem) => {
-    const listItem = completedItem.closest('.list');
-    const index = Array.from(container.children).indexOf(listItem);
+  localStorage.setItem('myTasks', JSON.stringify(myTasks));
 
-    listItem.remove();
-    myTasks.splice(index, 1);
-  });
-
-  updateIndexes();
-  storeItems();
+  window.location.reload();
 };
-// eslint-disable-next-line no-unused-vars
-const handleCheckboxClick = (event, container, myTasks, updateCompleted, storeItems) => {
+
+const handleCheckboxClick = (event, _container, _myTasks, updateCompleted, storeItems) => {
   const isChecked = event.target.checked;
   const listItem = event.target.closest('.list');
   const index = Array.from(listItem.parentNode.children).indexOf(listItem);
   updateCompleted(index, isChecked);
+  storeItems();
 };
 
 export { clearCompletedItems, handleCheckboxClick };
