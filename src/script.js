@@ -13,8 +13,10 @@ class TaskManager {
   }
 
   initialize() {
-    this.myTaskInput.addEventListener('keypress', this.getInput.bind(this));
-    this.clearButton.addEventListener('click', this.clearCompletedItems.bind(this));
+    this.myTaskInput.addEventListener('keypress',
+      this.getInput.bind(this));
+    this.clearButton.addEventListener('click',
+      this.clearCompletedItems.bind(this));
 
     this.container.addEventListener('click', (event) => {
       const kebabMenu = event.target.closest('.kebab-menu');
@@ -40,7 +42,9 @@ class TaskManager {
     this.container.addEventListener('click', (event) => {
       const checkbox = event.target.closest('.check');
       if (checkbox) {
-        handleCheckboxClick(event, this.container, this.myTasks, this.updateCompleted.bind(this), this.storeItems.bind(this));
+        handleCheckboxClick(event, this.container,
+          this.myTasks, this.updateCompleted.bind(this),
+          this.storeItems.bind(this));
       }
     });
   }
@@ -68,7 +72,8 @@ class TaskManager {
       const description = this.myTaskInput.value.trim();
 
       if (description !== '') {
-        this.addTaskToArray(description, false, this.myTasks.length + 1);
+        this.addTaskToArray(description, false,
+          this.myTasks.length + 1);
         this.myTaskInput.value = '';
         this.displayTask(this.myTasks.length - 1);
         this.storeItems();
@@ -104,7 +109,9 @@ class TaskManager {
     this.container.appendChild(item);
 
     checkbox.addEventListener('click', (event) => {
-      handleCheckboxClick(event, this.container, this.myTasks, this.updateCompleted.bind(this), this.storeItems.bind(this));
+      handleCheckboxClick(event, this.container, this.myTasks,
+        this.updateCompleted.bind(this),
+        this.storeItems.bind(this));
     });
 
     if (this.myTasks[index].completed) {
@@ -160,9 +167,11 @@ class TaskManager {
   }
 
   clearCompletedItems() {
-    clearCompletedItems(this.container, this.myTasks, this.updateIndexes.bind(this), this.storeItems.bind(this));
+    clearCompletedItems(this.container, this.myTasks,
+      this.updateIndexes.bind(this),
+      this.storeItems.bind(this));
   }
 }
 
-// eslint-disable-next-line no-new
-new TaskManager();
+const taskManager = new TaskManager();
+taskManager.initialize();
