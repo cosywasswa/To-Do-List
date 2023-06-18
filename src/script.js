@@ -12,7 +12,7 @@ class TaskManager {
     this.loadTasksFromLocalStorage();
   }
 
-  initialize() {
+  initialize = () => {
     this.myTaskInput.addEventListener('keypress',
       this.getInput.bind(this));
     this.clearButton.addEventListener('click',
@@ -49,7 +49,7 @@ class TaskManager {
     });
   }
 
-  loadTasksFromLocalStorage() {
+  loadTasksFromLocalStorage = () => {
     const storedTasks = localStorage.getItem('myTasks');
     if (storedTasks) {
       this.myTasks = JSON.parse(storedTasks);
@@ -59,7 +59,7 @@ class TaskManager {
     }
   }
 
-  addTaskToArray(description, completed, index) {
+  addTaskToArray = (description, completed, index) => {
     this.myTasks.push({
       description,
       completed: false,
@@ -67,7 +67,7 @@ class TaskManager {
     });
   }
 
-  getInput(event) {
+  getInput = (event) => {
     if (event.key === 'Enter') {
       const description = this.myTaskInput.value.trim();
 
@@ -81,7 +81,7 @@ class TaskManager {
     }
   }
 
-  displayTask(index) {
+  displayTask = (index) => {
     const item = document.createElement('li');
     const checkbox = document.createElement('input');
     const taskDescription = document.createElement('input');
@@ -129,31 +129,31 @@ class TaskManager {
     });
   }
 
-  deleteListItem(index) {
+  deleteListItem = (index) => {
     this.container.removeChild(this.container.children[index]);
     this.myTasks.splice(index, 1);
     this.updateIndexes();
     this.storeItems();
   }
 
-  updateIndexes() {
+  updateIndexes = () => {
     this.myTasks.forEach((task, index) => {
       task.index = index + 1;
     });
   }
 
-  storeItems() {
+  storeItems = () => {
     localStorage.setItem('myTasks', JSON.stringify(this.myTasks));
   }
 
-  editTask(index, newDescription) {
+  editTask = (index, newDescription) => {
     if (index >= 0 && index < this.myTasks.length) {
       this.myTasks[index].description = newDescription;
       this.storeItems();
     }
   }
 
-  updateCompleted(index, isChecked) {
+  updateCompleted = (index, isChecked) => {
     if (index >= 0 && index < this.myTasks.length) {
       this.myTasks[index].completed = isChecked;
       const taskDescription = document.querySelector(`#list-items li:nth-child(${index + 1}) .disc`);
@@ -166,7 +166,7 @@ class TaskManager {
     }
   }
 
-  clearCompletedItems() {
+  clearCompletedItems= () => {
     clearCompletedItems(this.container, this.myTasks,
       this.updateIndexes.bind(this),
       this.storeItems.bind(this));
